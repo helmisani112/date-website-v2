@@ -1,169 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Date Planner</title>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <!-- FORM START -->
-  <form action="https://formspree.io/f/mredrkpd" method="POST">
+<form id="dateForm" action="https://formspree.io/f/mredrkpd" method="POST">
 
-    <div class="hearts">💖 💕 💗 💓</div>
+  <div class="hearts">💖 💕 💗 💓</div>
 
-    <!-- PAGE 1 -->
-    <section class="page active" id="page1">
+  <section class="page active" id="page1">
+    <div class="card hero">
+      <div class="icon">💌</div>
+      <h1>Will you go on a date with me?</h1>
 
-      <div class="card hero">
-
-        <div class="icon">💌</div>
-
-        <h1>Will you go on a date with me?</h1>
-
-        <div class="buttons">
-
-          <button
-            type="button"
-            class="primary"
-            onclick="goPage(2)"
-          >
-            Yes
-          </button>
-
-          <button
-            type="button"
-            id="noBtn"
-          >
-            No
-          </button>
-
-        </div>
-
+      <div class="buttons">
+        <button type="button" class="primary" onclick="goPage(2)">Yes</button>
+        <button type="button" id="noBtn">No</button>
       </div>
+    </div>
+  </section>
 
-    </section>
+  <section class="page" id="page2">
+    <div class="card">
+      <h1>So... when are you free?</h1>
 
-    <!-- PAGE 2 -->
-    <section class="page" id="page2">
+      <label>Pick a date ✨</label>
+      <input type="date" id="dateInput" name="date" required />
 
-      <div class="card">
+      <label>What time? 🥹</label>
+      <select id="timeInput" name="time" required>
+        <option value="">Select time...</option>
+        <option>6:00 PM</option>
+        <option>7:00 PM</option>
+        <option>8:00 PM</option>
+        <option>9:00 PM</option>
+      </select>
 
-        <h1>So... when are you free?</h1>
+      <button type="button" class="primary wide" onclick="goPage(3)">okay next →</button>
+    </div>
+  </section>
 
-        <label>Pick a date ✨</label>
+  <section class="page" id="page3">
+    <h1>What are we feeling? 🍽️✨</h1>
+    <p>You can pick one.</p>
 
-        <input
-          type="date"
-          id="dateInput"
-          name="date"
-          required
-        />
+    <input type="hidden" id="foodInput" name="food" />
 
-        <label>What time? 🥹</label>
+    <div class="food-grid">
+      <div class="food" onclick="chooseFood(this, 'Pizza')">🍕<span>Pizza</span></div>
+      <div class="food" onclick="chooseFood(this, 'Sushi')">🍣<span>Sushi</span></div>
+      <div class="food" onclick="chooseFood(this, 'Burger')">🍔<span>Burger</span></div>
+      <div class="food" onclick="chooseFood(this, 'Pasta')">🍝<span>Pasta</span></div>
+      <div class="food" onclick="chooseFood(this, 'Tacos')">🌮<span>Tacos</span></div>
+      <div class="food" onclick="chooseFood(this, 'Ramen')">🍜<span>Ramen</span></div>
+    </div>
 
-        <select
-          id="timeInput"
-          name="time"
-          required
-        >
-          <option value="">Select time...</option>
-          <option>6:00 PM</option>
-          <option>7:00 PM</option>
-          <option>8:00 PM</option>
-          <option>9:00 PM</option>
-        </select>
+    <button type="submit" class="primary">this one! →</button>
+  </section>
 
-        <button
-          type="button"
-          class="primary wide"
-          onclick="goPage(3)"
-        >
-          okay next →
-        </button>
+  <section class="page" id="page4">
+    <div class="card">
+      <h1>It's a date! 💌</h1>
+      <p class="small">Your response has been sent. No big deal.</p>
+      <div class="summary" id="summary"></div>
+    </div>
+  </section>
 
-      </div>
+</form>
 
-    </section>
-
-    <!-- PAGE 3 -->
-    <section class="page" id="page3">
-
-      <h1>What are we feeling? 🍽️✨</h1>
-
-      <p>You can pick one.</p>
-
-      <!-- Hidden input for Formspree -->
-      <input
-        type="hidden"
-        id="foodInput"
-        name="food"
-      />
-
-      <div class="food-grid">
-
-        <div
-          class="food"
-          onclick="chooseFood(this, 'Pizza')"
-        >
-          🍕<span>Pizza</span>
-        </div>
-
-        <div
-          class="food"
-          onclick="chooseFood(this, 'Sushi')"
-        >
-          🍣<span>Sushi</span>
-        </div>
-
-        <div
-          class="food"
-          onclick="chooseFood(this, 'Burger')"
-        >
-          🍔<span>Burger</span>
-        </div>
-
-        <div
-          class="food"
-          onclick="chooseFood(this, 'Pasta')"
-        >
-          🍝<span>Pasta</span>
-        </div>
-
-        <div
-          class="food"
-          onclick="chooseFood(this, 'Tacos')"
-        >
-          🌮<span>Tacos</span>
-        </div>
-
-        <div
-          class="food"
-          onclick="chooseFood(this, 'Ramen')"
-        >
-          🍜<span>Ramen</span>
-        </div>
-
-      </div>
-
-      <button
-        type="submit"
-        class="primary"
-      >
-        this one! →
-      </button>
-
-    </section>
-
-  </form>
-  <!-- FORM END -->
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
-
 </html>

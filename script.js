@@ -1,14 +1,14 @@
 const noBtn = document.getElementById("noBtn");
+const form = document.getElementById("dateForm");
+
+let selectedFood = "";
 
 noBtn.addEventListener("mouseover", () => {
   const maxX = window.innerWidth - 120;
   const maxY = window.innerHeight - 80;
 
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
-
-  noBtn.style.left = randomX + "px";
-  noBtn.style.top = randomY + "px";
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
 });
 
 function goPage(pageNumber) {
@@ -19,8 +19,6 @@ function goPage(pageNumber) {
   document.getElementById("page" + pageNumber).classList.add("active");
 }
 
-let selectedFood = "";
-
 function chooseFood(element, food) {
   document.querySelectorAll(".food").forEach((item) => {
     item.classList.remove("selected");
@@ -28,31 +26,37 @@ function chooseFood(element, food) {
 
   element.classList.add("selected");
   selectedFood = food;
+  document.getElementById("foodInput").value = food;
 }
 
-function showResult() {
+form.addEventListener("submit", async function (event) {
+  event.preventDefault();
+
   const date = document.getElementById("dateInput").value;
   const time = document.getElementById("timeInput").value;
+  const food = document.getElementById("foodInput").value;
 
-  if (!date || !time || !selectedFood) {
+  if (!date || !time || !food) {
     alert("Please complete everything first ❤️");
     return;
   }
 
+  const formData = new FormData(form);
+
+  await fetch(form.action, {
+    method: "POST",
+    body: formData,
+    headers: {
+      Accept: "application/json"
+    }
+  });
+
   document.getElementById("summary").innerHTML = `
     📅 <strong>Date:</strong> ${date}<br>
     ⏰ <strong>Time:</strong> ${time}<br>
-    🍽️ <strong>Food:</strong> ${selectedFood}<br><br>
-    Looking forward to it 💖
+    🍽️ <strong>Food:</strong> ${food}<br><br>
+    Sent successfully 💖
   `;
 
   goPage(4);
-}
-
-function copyPlan() {
-  const text = document.getElementById("summary").innerText;
-
-  navigator.clipboard.writeText(text);
-
-  alert("Copied successfully 💕");
-}
+});
