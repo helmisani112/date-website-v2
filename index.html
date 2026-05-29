@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Date Planner</title>
+  <title>Date Planner V2</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<form id="dateForm" action="https://formspree.io/f/mredrkpd" method="POST">
+<form id="dateForm">
 
   <div class="hearts">💖 💕 💗 💓</div>
 
@@ -27,18 +27,20 @@
 
   <section class="page" id="page2">
     <div class="card">
-      <h1>So... when are you free?</h1>
+      <h1>When are you free? ✨</h1>
 
-      <label>Pick a date ✨</label>
-      <input type="date" id="dateInput" name="date" required />
+      <label>Pick a date 📅</label>
+      <input type="date" id="dateInput" required />
 
-      <label>What time? 🥹</label>
-      <select id="timeInput" name="time" required>
+      <label>Pick a time ⏰</label>
+      <select id="timeInput" required>
         <option value="">Select time...</option>
-        <option>6:00 PM</option>
-        <option>7:00 PM</option>
-        <option>8:00 PM</option>
-        <option>9:00 PM</option>
+        <option>00:00</option><option>01:00</option><option>02:00</option><option>03:00</option>
+        <option>04:00</option><option>05:00</option><option>06:00</option><option>07:00</option>
+        <option>08:00</option><option>09:00</option><option>10:00</option><option>11:00</option>
+        <option>12:00</option><option>13:00</option><option>14:00</option><option>15:00</option>
+        <option>16:00</option><option>17:00</option><option>18:00</option><option>19:00</option>
+        <option>20:00</option><option>21:00</option><option>22:00</option><option>23:00</option>
       </select>
 
       <button type="button" class="primary wide" onclick="goPage(3)">okay next →</button>
@@ -46,28 +48,55 @@
   </section>
 
   <section class="page" id="page3">
-    <h1>What are we feeling? 🍽️✨</h1>
-    <p>You can pick one.</p>
+    <h1>Where would you like our adventure to begin? ✨</h1>
+    <p>Pick as many places as you like 💖</p>
 
-    <input type="hidden" id="foodInput" name="food" />
+    <div class="food-grid" id="locationGrid"></div>
 
-    <div class="food-grid">
-      <div class="food" onclick="chooseFood(this, 'Pizza')">🍕<span>Pizza</span></div>
-      <div class="food" onclick="chooseFood(this, 'Sushi')">🍣<span>Sushi</span></div>
-      <div class="food" onclick="chooseFood(this, 'Burger')">🍔<span>Burger</span></div>
-      <div class="food" onclick="chooseFood(this, 'Pasta')">🍝<span>Pasta</span></div>
-      <div class="food" onclick="chooseFood(this, 'Tacos')">🌮<span>Tacos</span></div>
-      <div class="food" onclick="chooseFood(this, 'Ramen')">🍜<span>Ramen</span></div>
-    </div>
-
-    <button type="submit" class="primary">this one! →</button>
+    <button type="button" class="primary" onclick="showRestaurants()">next →</button>
   </section>
 
   <section class="page" id="page4">
+    <h1>Food tastes better with good company 🍽️💕</h1>
+    <p>Choose any restaurants you'd love to try together ✨</p>
+
+    <div class="food-grid" id="restaurantGrid"></div>
+
+    <button type="button" class="primary" onclick="showMenuReview()">view menus →</button>
+  </section>
+
+  <section class="page" id="page5">
     <div class="card">
-      <h1>It's a date! 💌</h1>
-      <p class="small">Your response has been sent. No big deal.</p>
+      <h1>Take a look at the menus 🍽️</h1>
+      <p class="small">
+        Menu opens in a new tab. This date page stays open.
+        After checking, come back here and continue 💖
+      </p>
+
+      <div id="menuReview"></div>
+
+      <button type="button" class="primary wide" onclick="showFinalSummary()">
+        I have decided 💖
+      </button>
+    </div>
+  </section>
+
+  <section class="page" id="page6">
+    <div class="card">
+      <h1>Our little date wishlist 💌</h1>
+
       <div class="summary" id="summary"></div>
+
+      <button type="submit" class="primary wide">
+        Send Date Wishlist 💖
+      </button>
+    </div>
+  </section>
+
+  <section class="page" id="page7">
+    <div class="card">
+      <h1>Sent successfully 💖</h1>
+      <p class="small">Your date wishlist has been sent to Telegram.</p>
     </div>
   </section>
 
