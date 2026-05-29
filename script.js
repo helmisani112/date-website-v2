@@ -41,15 +41,14 @@ form.addEventListener("submit", async function (event) {
     return;
   }
 
-  const formData = new FormData(form);
-
-  await fetch(form.action, {
-    method: "POST",
-    body: formData,
-    headers: {
-      Accept: "application/json"
-    }
-  });
+  await fetch("https://script.google.com/macros/s/AKfycbw5vCmnqzylKHUyLY46f55NhF1Z_isjdWvfNC1AuDsly76djKAgCLR9t7HZaGBpYsdn/exec", {
+  method: "POST",
+  body: JSON.stringify({
+    date: date,
+    time: time,
+    food: food
+  })
+});
 
   const whatsappMessage =
 `💖 New Date Plan
