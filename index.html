@@ -43,7 +43,10 @@
         <option>20:00</option><option>21:00</option><option>22:00</option><option>23:00</option>
       </select>
 
-      <button type="button" class="primary wide" onclick="goPage(3)">okay next →</button>
+      <div class="nav-buttons">
+        <button type="button" class="secondary" onclick="goPage(1)">← Back</button>
+        <button type="button" class="primary" onclick="goPage(3)">Next →</button>
+      </div>
     </div>
   </section>
 
@@ -53,7 +56,10 @@
 
     <div class="food-grid" id="locationGrid"></div>
 
-    <button type="button" class="primary" onclick="showRestaurants()">next →</button>
+    <div class="nav-buttons">
+      <button type="button" class="secondary" onclick="goPage(2)">← Back</button>
+      <button type="button" class="primary" onclick="showRestaurants()">Next →</button>
+    </div>
   </section>
 
   <section class="page" id="page4">
@@ -62,7 +68,10 @@
 
     <div class="food-grid" id="restaurantGrid"></div>
 
-    <button type="button" class="primary" onclick="showMenuReview()">view menus →</button>
+    <div class="nav-buttons">
+      <button type="button" class="secondary" onclick="goPage(3)">← Back</button>
+      <button type="button" class="primary" onclick="showMenuReview()">View Menus →</button>
+    </div>
   </section>
 
   <section class="page" id="page5">
@@ -75,9 +84,10 @@
 
       <div id="menuReview"></div>
 
-      <button type="button" class="primary wide" onclick="showFinalSummary()">
-        I have decided 💖
-      </button>
+      <div class="nav-buttons">
+        <button type="button" class="secondary" onclick="goPage(4)">← Back</button>
+        <button type="button" class="primary" onclick="showFinalSummary()">I have decided 💖</button>
+      </div>
     </div>
   </section>
 
@@ -87,9 +97,10 @@
 
       <div class="summary" id="summary"></div>
 
-      <button type="submit" class="primary wide">
-        Send Date Wishlist 💖
-      </button>
+      <div class="nav-buttons">
+        <button type="button" class="secondary" onclick="goPage(5)">← Back</button>
+        <button type="submit" class="primary">Send Date Wishlist 💖</button>
+      </div>
     </div>
   </section>
 
