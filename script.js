@@ -51,12 +51,30 @@ form.addEventListener("submit", async function (event) {
     }
   });
 
+  const whatsappMessage =
+`💖 New Date Plan
+
+📅 Date: ${date}
+⏰ Time: ${time}
+🍽️ Food: ${food}
+
+Sent from Date Website V2 💌`;
+
+  const whatsappNumber = "60146745667";
+  const whatsappLink =
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
   document.getElementById("summary").innerHTML = `
     📅 <strong>Date:</strong> ${date}<br>
     ⏰ <strong>Time:</strong> ${time}<br>
     🍽️ <strong>Food:</strong> ${food}<br><br>
-    Sent successfully 💖
+    Email submitted successfully 💖<br>
+    WhatsApp is opening now. Please press Send.
   `;
 
   goPage(4);
+
+  setTimeout(() => {
+    window.open(whatsappLink, "_blank");
+  }, 800);
 });
