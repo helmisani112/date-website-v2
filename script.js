@@ -3,6 +3,9 @@ const form = document.getElementById("dateForm");
 
 let selectedFood = "";
 
+const TELEGRAM_WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbw5vCmnqzylKHUyLY46f55NhF1Z_isjdWvfNC1AuDsly76djKAgCLR9t7HZaGBpYsdn/exec";
+
 noBtn.addEventListener("mouseover", () => {
   const maxX = window.innerWidth - 120;
   const maxY = window.innerHeight - 80;
@@ -41,39 +44,27 @@ form.addEventListener("submit", async function (event) {
     return;
   }
 
-  await fetch("https://script.google.com/macros/s/AKfycbw5vCmnqzylKHUyLY46f55NhF1Z_isjdWvfNC1AuDsly76djKAgCLR9t7HZaGBpYsdn/exec", {
-  method: "POST",
-  body: JSON.stringify({
-    date: date,
-    time: time,
-    food: food
-  })
-});
+  try {
+    await fetch(TELEGRAM_WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify({
+        date: date,
+        time: time,
+        food: food
+      })
+    });
 
-  const whatsappMessage =
-`💖 New Date Plan
+    document.getElementById("summary").innerHTML = `
+      📅 <strong>Date:</strong> ${date}<br>
+      ⏰ <strong>Time:</strong> ${time}<br>
+      🍽️ <strong>Food:</strong> ${food}<br><br>
+      Sent successfully to Telegram 💖
+    `;
 
-📅 Date: ${date}
-⏰ Time: ${time}
-🍽️ Food: ${food}
-
-Sent from Date Website V2 💌`;
-
-  const whatsappNumber = "60146745667";
-  const whatsappLink =
-    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-
-  document.getElementById("summary").innerHTML = `
-    📅 <strong>Date:</strong> ${date}<br>
-    ⏰ <strong>Time:</strong> ${time}<br>
-    🍽️ <strong>Food:</strong> ${food}<br><br>
-    Email submitted successfully 💖<br>
-    WhatsApp is opening now. Please press Send.
-  `;
-
-  goPage(4);
-
-  setTimeout(() => {
-    window.open(whatsappLink, "_blank");
-  }, 800);
+    goPage(4);
+  } catch (error) {
+    alert("Something went wrong. Please try again.");
+    console.error(error);
+  }
 });
