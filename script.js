@@ -82,10 +82,25 @@ const data = {
   ]
 };
 
-noBtn.addEventListener("mouseover", () => {
-  noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
-  noBtn.style.top = Math.random() * (window.innerHeight - 80) + "px";
-});
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("click", moveNoButton);
+
+function moveNoButton() {
+  const buttonBox = noBtn.parentElement;
+
+  buttonBox.style.position = "relative";
+  buttonBox.style.minHeight = "100px";
+
+  const maxX = buttonBox.offsetWidth - noBtn.offsetWidth;
+  const maxY = buttonBox.offsetHeight - noBtn.offsetHeight;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  noBtn.style.position = "absolute";
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+}
 
 function goPage(pageNumber) {
   document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
