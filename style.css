@@ -1,4 +1,3 @@
-```css
 * {
   margin: 0;
   padding: 0;
@@ -9,16 +8,14 @@
 body {
   background: linear-gradient(135deg, #ffe6f0, #fff5f9);
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 20px;
 }
 
 .page {
   display: none;
   width: 100%;
-  max-width: 900px;
+  max-width: 950px;
+  margin: auto;
 }
 
 .page.active {
@@ -34,6 +31,7 @@ body {
 }
 
 .hero {
+  margin-top: 15vh;
   padding: 50px 30px;
 }
 
@@ -45,22 +43,26 @@ body {
 h1 {
   color: #c2185b;
   margin-bottom: 15px;
+  text-align: center;
 }
 
 h2 {
-  margin-top: 20px;
+  margin-top: 25px;
   margin-bottom: 10px;
   color: #c2185b;
   text-align: left;
+  grid-column: 1 / -1;
 }
 
 p {
   margin-bottom: 15px;
+  text-align: center;
 }
 
 .small {
   color: #666;
   font-size: 14px;
+  line-height: 1.5;
 }
 
 label {
@@ -112,11 +114,13 @@ button:hover {
   background: #fff0f5;
 }
 
-.buttons {
-  margin-top: 20px;
+.buttons,
+.nav-buttons {
   display: flex;
   justify-content: center;
   gap: 15px;
+  margin-top: 25px;
+  flex-wrap: wrap;
 }
 
 #noBtn {
@@ -125,7 +129,7 @@ button:hover {
 
 .food-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 15px;
   margin-top: 20px;
 }
@@ -138,6 +142,7 @@ button:hover {
   text-align: center;
   cursor: pointer;
   transition: 0.2s ease;
+  min-height: 110px;
 }
 
 .food:hover {
@@ -163,18 +168,32 @@ button:hover {
   padding: 15px;
   margin-top: 15px;
   text-align: left;
+  line-height: 1.6;
 }
 
-.nav-buttons {
+.menu-item {
+  background: #fff7fb;
+  border: 2px solid #ffd6e7;
+  border-radius: 18px;
+  padding: 18px;
+  margin: 15px 0;
+  text-align: left;
+}
+
+.menu-check {
   display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 25px;
-  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.menu-check input {
+  width: auto;
+  margin-top: 5px;
 }
 
 .wide {
   width: 100%;
+  margin-top: 10px;
 }
 
 .hearts {
@@ -183,6 +202,7 @@ button:hover {
   right: 10px;
   font-size: 24px;
   opacity: 0.4;
+  pointer-events: none;
 }
 
 a {
@@ -190,8 +210,16 @@ a {
 }
 
 @media (max-width: 600px) {
+  body {
+    padding: 15px;
+  }
+
   .card {
     padding: 20px;
+  }
+
+  .hero {
+    margin-top: 10vh;
   }
 
   .food-grid {
@@ -202,8 +230,8 @@ a {
     width: 100%;
   }
 
-  .nav-buttons {
+  .nav-buttons,
+  .buttons {
     flex-direction: column;
   }
 }
-```

@@ -96,6 +96,7 @@ function toggleLocation(location, element) {
   if (selectedLocations.includes(location)) {
     selectedLocations = selectedLocations.filter(item => item !== location);
     element.classList.remove("selected");
+    selectedRestaurants = selectedRestaurants.filter(item => item.location !== location);
   } else {
     selectedLocations.push(location);
     element.classList.add("selected");
@@ -104,7 +105,6 @@ function toggleLocation(location, element) {
 
 function toggleRestaurant(location, name, link, element) {
   const key = location + " - " + name;
-
   const exists = selectedRestaurants.some(item => item.key === key);
 
   if (exists) {
@@ -141,12 +141,14 @@ function showRestaurants() {
   selectedLocations.forEach(location => {
     const title = document.createElement("h2");
     title.innerText = location;
-    title.style.gridColumn = "1 / -1";
     grid.appendChild(title);
 
     data[location].forEach(([name, link]) => {
+      const key = location + " - " + name;
+      const selected = selectedRestaurants.some(item => item.key === key);
+
       const div = document.createElement("div");
-      div.className = "food";
+      div.className = selected ? "food selected" : "food";
       div.innerHTML = `🍽️<span>${name}</span>`;
       div.onclick = () => toggleRestaurant(location, name, link, div);
       grid.appendChild(div);
@@ -167,10 +169,17 @@ function showMenuReview() {
 
   selectedRestaurants.forEach(item => {
     const box = document.createElement("div");
-    box.className = "summary";
+    box.className = "menu-item";
+
     box.innerHTML = `
-      <strong>📍 ${item.location}</strong><br>
-      🍽️ ${item.name}<br><br>
+      <label class="menu-check">
+        <input type="checkbox" checked onchange="removeRestaurantFromReview('${item.key}')">
+        <span>
+          <strong>📍 ${item.location}</strong><br>
+          🍽️ ${item.name}
+        </span>
+      </label>
+
       ${
         item.link
           ? `<a href="${item.link}" target="_blank">
@@ -179,15 +188,33 @@ function showMenuReview() {
           : `<p class="small">Menu not available</p>`
       }
     `;
+
     review.appendChild(box);
   });
 
   goPage(5);
 }
 
+function removeRestaurantFromReview(key) {
+  selectedRestaurants = selectedRestaurants.filter(item => item.key !== key);
+  showMenuReview();
+}
+
 function showFinalSummary() {
   const date = document.getElementById("dateInput").value;
   const time = document.getElementById("timeInput").value;
+
+  if (!date || !time) {
+    alert("Please select date and time first 💖");
+    goPage(2);
+    return;
+  }
+
+  if (selectedRestaurants.length === 0) {
+    alert("Please keep at least one restaurant selected 💕");
+    goPage(4);
+    return;
+  }
 
   document.getElementById("summary").innerHTML = `
     📅 <strong>Date:</strong> ${date}<br>
@@ -209,10 +236,12 @@ form.addEventListener("submit", async function (event) {
   const date = document.getElementById("dateInput").value;
   const time = document.getElementById("timeInput").value;
 
-  if (!date || !time || selectedLocations.length === 0 || selectedRestaurants.length === 0) {
-    alert("Please complete everything first ❤️");
-    return;
-  }
+  const wishlistText =
+`📍 Places:
+${selectedLocations.map(x => "• " + x).join("\n")}
+
+🍽️ Restaurants:
+${selectedRestaurants.map(x => "• " + x.name + " (" + x.location + ")").join("\n")}`;
 
   await fetch(TELEGRAM_WEB_APP_URL, {
     method: "POST",
@@ -220,11 +249,7 @@ form.addEventListener("submit", async function (event) {
     body: JSON.stringify({
       date: date,
       time: time,
-      locations: selectedLocations,
-      restaurants: selectedRestaurants.map(item => ({
-        location: item.location,
-        name: item.name
-      }))
+      food: wishlistText
     })
   });
 
